@@ -42,15 +42,21 @@ const run = async () => {
 
     // if our latest saved sha matches the latest github sha, we're all set
     if (latestSha == sha) {
-        console.log('Up to date!'.green)
-        return
+        console.log('Up to date!'.bgGreen.black)
+        // return
     }
 
     // otherwise, update the local data
-    await updateLocalLib(libPath, repoInfo)
+    // (returns non-zero value on failure)
+    if (await updateLocalLib(libPath, repoInfo)) {
+        console.log('Exiting early.'.red)
+        return
+    }
 
     // and save the latest sha
     updateLocalSha(path, sha)
+
+    console.log('Updated file!'.bgGreen.black)
 }
 
 run()

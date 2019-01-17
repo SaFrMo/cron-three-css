@@ -1,6 +1,7 @@
 {
     "name": "cron-three-css",
-    "version": "1.0.0",
+    "bin": "bin/index.js",
+    "version": "2.1.0",
     "description": "",
     "main": "index.js",
     "keywords": [],

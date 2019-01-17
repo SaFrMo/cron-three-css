@@ -43,7 +43,7 @@ const run = async () => {
     // if our latest saved sha matches the latest github sha, we're all set
     if (latestSha == sha) {
         console.log('Up to date!'.bgGreen.black)
-        // return
+        return
     }
 
     // otherwise, update the local data
@@ -59,7 +59,7 @@ const run = async () => {
     console.log('Updated file!'.bgGreen.black)
 }
 
-run()
-
-// schedule cron job
-// cron.schedule('* */1 * * *', () => {})
+// run once an hour
+cron.schedule('* */1 * * *', () => {
+    run()
+})

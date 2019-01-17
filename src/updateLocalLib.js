@@ -1,6 +1,7 @@
 const fs = require('fs')
 const fetch = require('node-fetch')
 const colors = require('colors')
+const shell = require('shelljs')
 
 module.exports = async (libPath, { user, repo, branch, path }) => {
     try {
@@ -26,6 +27,22 @@ module.exports = async (libPath, { user, repo, branch, path }) => {
 
         // write incremented version to package
         fs.writeFileSync(`${libPath}/package.json`, JSON.stringify(packageJson))
+
+        // commit
+        if (
+            shell.exec(
+                `cd built && git add . && git commit -m "Auto-commit - v ${
+                    packageJson.version
+                }" && git push`
+            ).code !== 0
+        ) {
+            throw new Error('Something went wrong with the commit')
+        }
+
+        // publish
+        if (shell.exec(`cd built && npm publish`).code !== 0) {
+            throw new Error('Something went wrong with the publishing')
+        }
     } catch (err) {
         console.log('Error!'.red)
         console.log(err)

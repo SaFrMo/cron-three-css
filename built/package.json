@@ -1,1 +1,1 @@
-{"name":"three-css-renderer","version":"1.6.0","description":"The CSS renderer for THREE.js.","main":"index.js","scripts":{"test":"echo \"Error: no test specified\" && exit 1"},"keywords":[],"author":"","license":"ISC"}
+{"name":"three-css-renderer","version":"1.7.0","description":"The CSS renderer for THREE.js.","main":"index.js","scripts":{"test":"echo \"Error: no test specified\" && exit 1"},"keywords":[],"author":"","license":"ISC"}

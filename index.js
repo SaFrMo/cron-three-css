@@ -61,7 +61,7 @@ const run = async () => {
 
 // run once an hour
 module.exports = () => {
-    cron.schedule('* * */1 * *', () => {
+    cron.schedule('* * * */1 * *', () => {
         run()
     })
 }

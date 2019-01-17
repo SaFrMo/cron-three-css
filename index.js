@@ -6,15 +6,24 @@ const colors = require('colors')
 const getLatestSha = require('./src/getLatestSha')
 const getOrCreateCache = require('./src/getOrCreateCache')
 const updateLocalSha = require('./src/updateLocalSha')
+const updateLocalLib = require('./src/updateLocalLib')
 
+// our vars
 const path = './data/latestThreeSha.json'
+const libPath = './built'
+const repoInfo = {
+    user: 'mrdoob',
+    repo: 'three.js',
+    branch: 'master',
+    path: 'examples/js/renderers/CSS3DRenderer.js'
+}
 
 // main function
 const run = async () => {
-    console.log('Running CSS3DRenderer cron job...'.bgGreen.black)
+    console.log(`Running update for ${repoInfo.repo}...`.bgGreen.black)
 
     // get the shasum of the latest commit containing a change to the target JS
-    const sha = await getLatestSha()
+    const sha = await getLatestSha(repoInfo)
     if (sha === null) {
         // something's wrong - let's alert the user
         console.log(
@@ -37,7 +46,10 @@ const run = async () => {
         return
     }
 
-    // otherwise, save the latest sha
+    // otherwise, update the local data
+    await updateLocalLib(libPath, repoInfo)
+
+    // and save the latest sha
     updateLocalSha(path, sha)
 }
 

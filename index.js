@@ -8,7 +8,7 @@ const getOrCreateCache = require('./src/getOrCreateCache')
 const updateLocalSha = require('./src/updateLocalSha')
 const updateLocalLib = require('./src/updateLocalLib')
 
-// our vars
+// our config
 const path = './data/latestThreeSha.json'
 const libPath = './built'
 const repoInfo = {
